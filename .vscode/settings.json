@@ -1,0 +1,9 @@
+{
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "prettier.semi": false,
+}
