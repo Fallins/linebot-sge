@@ -32,7 +32,7 @@ const analyzedIncomingMsg = event => {
             return replyText(event, '操你媽的不能重複參加')
 
           groupObj[groupId].push(profile)
-          console.log({ groupObj: JSON.stringify(groupObj) })
+          console.log({ groupObj: JSON.stringify(groupObj), switchOrder })
           replyText(event, profile.displayName + ' 參加成功')
         })
       case '準備完成':
@@ -50,6 +50,7 @@ const analyzedIncomingMsg = event => {
         )
       case '抽':
       case '換':
+        console.log(switchOrder, groupObj)
         return replyText(
           event,
           JSON.stringify({
