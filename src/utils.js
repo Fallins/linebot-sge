@@ -36,12 +36,16 @@ const analyzedIncomingMsg = event => {
           replyText(event, profile.displayName + ' 參加成功')
         })
       case '準備完成':
-        const arr = Array.from(
+        let arr = Array.from(
           { length: groupObj[groupId].length },
           (_, idx) => idx + 1
         )
         switchOrder[groupId] = randomArr(arr)
-        console.log({ groupObj: JSON.stringify(groupObj), switchOrder })
+        console.log({
+          groupObj: JSON.stringify(groupObj),
+          switchOrder: switchOrder[groupId],
+          arr
+        })
 
         return replyText(
           event,
