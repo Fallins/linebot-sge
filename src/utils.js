@@ -26,10 +26,10 @@ const analyzedIncomingMsg = event => {
       case '+1':
         // add info into groupObj
         return getProfile(event).then(profile => {
-          if (
-            groupObj[groupId].find(player => player.userId === profile.userId)
-          )
-            return replyText(event, '操你媽的不能重複參加')
+          // if (
+          //   groupObj[groupId].find(player => player.userId === profile.userId)
+          // )
+          //   return replyText(event, '操你媽的不能重複參加')
 
           groupObj[groupId].push(profile)
           console.log({ groupObj: JSON.stringify(groupObj), switchOrder })
@@ -39,10 +39,11 @@ const analyzedIncomingMsg = event => {
         switchOrder[groupId] = randomArr(
           Array.from({ length: groupObj[groupId].length }, (_, idx) => idx + 1)
         )
+        console.log({ groupObj: JSON.stringify(groupObj), switchOrder })
         return replyText(
           event,
           `目前參加的人數有 ${groupObj[groupId].length} 人\n` +
-            `請依照下列順序回覆 "抽" 開始交換禮物` +
+            `請依照下列順序回覆 "抽" 開始交換禮物\n` +
             `${randomArr(groupObj[groupId]).map(
               (player, idx) => `${idx + 1}. ${player.displayName}\n`
             )} 
