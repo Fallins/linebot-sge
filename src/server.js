@@ -8,7 +8,11 @@ const bot = linebot({
   channelSecret: process.env.channelSecret,
   channelAccessToken: process.env.channelAccessToken
 })
-
+console.log({
+  channelId: process.env.channelId,
+  channelSecret: process.env.channelSecret,
+  channelAccessToken: process.env.channelAccessToken
+})
 // parser incoming request
 const linebotParser = bot.parser()
 
@@ -16,11 +20,7 @@ const linebotParser = bot.parser()
 app.post('/linewebhook', linebotParser)
 
 // 當有人傳送訊息給Bot時
-bot.on('message', event => {
-  console.log(analyzedIncomingMsg)
-  console.log('onMsg')
-  analyzedIncomingMsg(event)
-})
+bot.on('message', event => analyzedIncomingMsg(event))
 
 // Greeting
 bot.on('join', event => {
