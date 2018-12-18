@@ -30,8 +30,6 @@ bot.on('message', event => analyzedIncomingMsg(event))
 // })
 
 // Bot所監聽的webhook路徑與port
-app.listen(process.env.PORT || 80, async function() {
-  await api.loadTokens()
-  await updateImages()
+app.listen(process.env.PORT || 80, function() {
   console.log('[BOT已準備就緒]')
 })

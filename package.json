@@ -4,8 +4,7 @@
   "description": "A line chatbot to help you exchange gift more convenience.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon index.js"
+    "start": "node src/server.js"
   },
   "keywords": [
     "chatbot",
