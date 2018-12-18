@@ -1,4 +1,5 @@
 const groupObj = {}
+const switchOrder = {}
 
 const analyzedIncomingMsg = event => {
   console.log(`================ EVENT OBJECT ================`)
@@ -17,26 +18,44 @@ const analyzedIncomingMsg = event => {
       case '開始抽獎':
         // initailized group info
         groupObj[groupId] = []
-        console.log({ groupObj })
+        switchOrder[groupId] = []
+        console.log({ groupObj, switchOrder })
         return replyText(event, '可以抽獎了，請要參加的人回覆 "+"、"++"、"+1" ')
       case '+':
       case '++':
       case '+1':
         // add info into groupObj
         return getProfile(event).then(profile => {
+          if (
+            groupObj[groupId].find(player => player.userId === profile.userId)
+          )
+            return replyText(event, '操你媽的不能重複參加')
+
           groupObj[groupId].push(profile)
           console.log({ groupObj: JSON.stringify(groupObj) })
           replyText(event, profile.displayName + ' 參加成功')
         })
       case '準備完成':
+        switchOrder[groupId] = randomArr(
+          Array.from({ length: groupObj[groupId].length }, (_, idx) => idx + 1)
+        )
         return replyText(
           event,
-          `目前參加的人數有 ${groupObj[groupId].length} 人\n
-           請依照下列順序回覆 "抽" 開始交換禮物
-           ${randomArr(groupObj[groupId]).map(
-             (player, idx) => `${idx + 1}. ${player.displayName}\n`
-           )} 
+          `目前參加的人數有 ${groupObj[groupId].length} 人\n` +
+            `請依照下列順序回覆 "抽" 開始交換禮物` +
+            `${randomArr(groupObj[groupId]).map(
+              (player, idx) => `${idx + 1}. ${player.displayName}\n`
+            )} 
           `
+        )
+      case '抽':
+      case '換':
+        return replyText(
+          event,
+          JSON.stringify({
+            switchOrder: switchOrder[groupId],
+            groupObj: groupObj[groupId]
+          })
         )
       default:
         return replyText(event, '指令錯誤')
