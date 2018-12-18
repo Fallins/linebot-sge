@@ -18,9 +18,9 @@ app.post('/linewebhook', linebotParser)
 bot.on('message', event => analyzedIncomingMsg(event))
 
 // Greeting
-// bot.on('join', event => {
-//   replyText(event, ['你好，我是幹圖王', `目前狀態: 功能開啟`, INTRO])
-// })
+bot.on('join', event => {
+  replyText(event, '你好，我是禮物機器人\n幫助您方便的交換禮物')
+})
 
 // bot.on('leave', event => {
 //   const sourceID = getSourceID(event.source)
