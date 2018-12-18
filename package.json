@@ -4,7 +4,8 @@
   "description": "A line chatbot to help you exchange gift more convenience.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [
     "chatbot",
