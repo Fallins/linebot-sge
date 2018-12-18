@@ -31,6 +31,6 @@ bot.on('join', event => {
 // })
 
 // Bot所監聽的webhook路徑與port
-app.listen(process.env.PORT || 80, function() {
+app.listen(process.env.PORT || 8088, function() {
   console.log('[BOT已準備就緒]')
 })
