@@ -11,12 +11,12 @@ const analyzedIncomingMsg = event => {
 
   console.log({ type, groupId })
   // Only accept group to use
-  if (type !== 'group') {
+  if (type === 'group') {
     if (groupObj[groupId]) {
       // add info into groupObj
       return getProfile(event).then(profile => {
         groupObj[groupId].push(profile)
-        console.log({ groupObj })
+        console.log({ groupObj: JSON.stringify(groupObj) })
         replyText(event, profile.displayName + ' is in.')
       })
     } else {
