@@ -16,7 +16,11 @@ const linebotParser = bot.parser()
 app.post('/linewebhook', linebotParser)
 
 // 當有人傳送訊息給Bot時
-bot.on('message', event => analyzedIncomingMsg(event))
+bot.on('message', event => {
+  console.log(analyzedIncomingMsg)
+  console.log('onMsg')
+  analyzedIncomingMsg(event)
+})
 
 // Greeting
 bot.on('join', event => {
