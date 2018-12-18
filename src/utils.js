@@ -13,21 +13,21 @@ const analyzedIncomingMsg = event => {
   if (type !== 'group') {
     if (groupObj[groupId]) {
       // add info into groupObj
-      getProfile(event).then(profile => {
+      return getProfile(event).then(profile => {
         groupObj[groupId].push(profile)
-        console.log(groupObj)
+        console.log({ groupObj })
         replyText(event, profile.displayName + 'is in.')
       })
     } else {
       // initailized group info
       groupObj[groupId] = []
-
-      replyText(event, '可以抽獎了，請要參加的人回應任意文字')
+      console.log({ groupObj })
+      return replyText(event, '可以抽獎了，請要參加的人回應任意文字')
     }
   }
 
-  replyText(event, 'This bot is only accept group to play')
-  replyText(event, 'test22222')
+  console.log({ groupObj })
+  return replyText(event, 'This bot is only accept group to play')
 }
 
 const replyText = (event, text) => {
