@@ -49,19 +49,25 @@ const analyzedIncomingMsg = event => {
             `請依照下列順序回覆 "抽" 開始交換禮物\n` +
             `${randomArr(groupObj[groupId])
               .map((player, idx) => `${idx + 1}. ${player.displayName}\n`)
-              .join(',')} 
-          `
+              .join('')}\n\n` +
+            `${groupObj[groupId][0].displayName} 請準備`
         )
       case '抽':
       case '換':
         const giftIndex = groupObj[groupId].findIndex(
           player => player.userId == userId
         )
-        const userName = groupObj[groupId][giftIndex].displayName
+        const playerName = groupObj[groupId][giftIndex].displayName
+        const nextPlayerName = groupObj[groupId][giftIndex + 1].displayName
         const giftNumber = switchOrder[groupId][giftIndex]
         return replyText(
           event,
-          `恭喜 ${userName} 交換到第 ${giftNumber} 號禮物`
+          `恭喜 ${playerName} 交換到第 ${giftNumber} 號禮物/n` +
+            `${
+              nextPlayerName
+                ? `下一位 ${nextPlayerName} 請準備`
+                : `結束啦！！！`
+            }`
         )
       default:
         return replyText(event, '指令錯誤')
