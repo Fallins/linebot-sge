@@ -9,6 +9,7 @@ const analyzedIncomingMsg = event => {
     source: { type, groupId }
   } = event
 
+  console.log({ type, groupId })
   // Only accept group to use
   if (type !== 'group') {
     if (groupObj[groupId]) {
@@ -16,7 +17,7 @@ const analyzedIncomingMsg = event => {
       return getProfile(event).then(profile => {
         groupObj[groupId].push(profile)
         console.log({ groupObj })
-        replyText(event, profile.displayName + 'is in.')
+        replyText(event, profile.displayName + ' is in.')
       })
     } else {
       // initailized group info
