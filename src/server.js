@@ -8,11 +8,7 @@ const bot = linebot({
   channelSecret: process.env.channelSecret,
   channelAccessToken: process.env.channelAccessToken
 })
-console.log({
-  channelId: process.env.channelId,
-  channelSecret: process.env.channelSecret,
-  channelAccessToken: process.env.channelAccessToken
-})
+
 // parser incoming request
 const linebotParser = bot.parser()
 
