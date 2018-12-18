@@ -5,6 +5,7 @@ const analyzedIncomingMsg = event => {
   console.log(`============== EVENT OBJECT END ==============`)
 
   getProfile(event)
+  getMembersId(event)
 
   replyText(event, "I've received your message")
 }
@@ -19,6 +20,13 @@ const replyText = (event, text) => {
 
 const getProfile = event => {
   return event.source.profile().then(profile => console.log(profile))
+}
+
+const getMembersId = event => {
+  return event.source.member().then(member => {
+    console.log(member)
+    console.log(member.memberIds)
+  })
 }
 
 module.exports = {
