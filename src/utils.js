@@ -3,6 +3,8 @@ const analyzedIncomingMsg = event => {
   console.log(JSON.stringify(event))
   console.log({ event })
   console.log(`============== EVENT OBJECT END ==============`)
+
+  replyText(event, "I've received your message")
 }
 
 const replyText = (event, text) => {

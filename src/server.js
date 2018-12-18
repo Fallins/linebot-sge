@@ -1,5 +1,6 @@
 const app = require('express')()
 const linebot = require('linebot')
+const { analyzedIncomingMsg, replyText } = require('./utils')
 
 // 用於辨識Line Channel的資訊
 const bot = linebot({
