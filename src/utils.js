@@ -109,7 +109,7 @@ const analyzedIncomingMsg = event => {
         }
         return
       default:
-        return replyText(event, '指令錯誤')
+        return //replyText(event, '指令錯誤')
     }
   }
 
