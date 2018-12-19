@@ -1,5 +1,12 @@
 const groupObj = {}
 const switchOrder = {}
+const intro =
+  `嗨，我是交換禮物機器人\n` +
+  `開始之前，請先進行前置準備，將所有禮物從 1 開始隨機標上編號\n` +
+  `完成後，輸入 "交換禮物" => 可以開始交換禮物的程序，也可以用來重置整個過程。\n` +
+  `交換禮物活動開始後，群組內要參加的人選請分別回覆 "+"、"++"、"+1" 供機器人進行隨機交換\n` +
+  `確認所有人都參加以後，請由一位代表回覆 "準備完成" ，準備進行交換\n` +
+  `最後依照機器人提供的順序回覆 "抽"、"換" 進行禮物的交換\n`
 
 const analyzedIncomingMsg = event => {
   console.log(`================ EVENT OBJECT ================`)
@@ -12,11 +19,14 @@ const analyzedIncomingMsg = event => {
   } = event
 
   console.log({ type, groupId })
+
   // Only accept group to use
   if (type === 'group') {
     switch (text) {
-      case '開始抽獎':
-      case '開始交換':
+      case '禮物機器人':
+      case '幫助':
+        return replyText(event, intro)
+      case '交換禮物':
         // initailized group info
         groupObj[groupId] = []
         switchOrder[groupId] = []
@@ -55,6 +65,14 @@ const analyzedIncomingMsg = event => {
       case '換':
         if (switchOrder[groupId].length < 1)
           return replyText(event, '請輸入 準備完成 後，才能進入抽獎程序')
+        if (!nextPlayerName) {
+          delete groupObj[groupId]
+          delete switchOrder[groupId]
+          return replyText(
+            event,
+            '活動結束囉! 如果要在進行一次，請輸入 交換禮物'
+          )
+        }
 
         const giftIndex = groupObj[groupId].findIndex(
           player => player.userId == userId
