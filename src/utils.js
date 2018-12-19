@@ -58,6 +58,8 @@ const analyzedIncomingMsg = event => {
       case '準備完成':
         if (!isStart)
           return replyText(event, '請先輸入 "交換禮物" 後才能開始活動哦')
+        if (switchOrder[groupId].length < 1)
+          return replyText(event, '至少要有一位玩家，才能進入抽獎程序哦')
 
         let arr = Array.from(
           { length: groupObj[groupId].length },
