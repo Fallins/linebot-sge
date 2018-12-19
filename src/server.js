@@ -20,15 +20,15 @@ bot.on('message', event => analyzedIncomingMsg(event))
 
 // Greeting
 bot.on('join', event => {
-  replyText(event, '你好，我是禮物機器人\n幫助您方便的交換禮物')
+  replyText(
+    event,
+    '你好，我是禮物機器人\n請輸入 "禮物機器人" 或是 "幫助" 取得更多資訊'
+  )
 })
 
-// bot.on('leave', event => {
-//   const sourceID = getSourceID(event.source)
-//   setSilenceByID(sourceID, null)
-
-//   console.log(`全能幹圖王 離開 ${sourceID} 了...`)
-// })
+bot.on('leave', event => {
+  // console.log(`禮物機器人 離開了...`)
+})
 
 // Bot所監聽的webhook路徑與port
 app.listen(process.env.PORT || 8088, function() {

@@ -16,11 +16,12 @@ const analyzedIncomingMsg = event => {
   if (type === 'group') {
     switch (text) {
       case '開始抽獎':
+      case '開始交換':
         // initailized group info
         groupObj[groupId] = []
         switchOrder[groupId] = []
         console.log({ groupObj, switchOrder })
-        return replyText(event, '可以抽獎了，請要參加的人回覆 "+"、"++"、"+1" ')
+        return replyText(event, '請參加活動的人回覆: "+"、"++"、"+1" ')
       case '+':
       case '++':
       case '+1':
@@ -41,16 +42,10 @@ const analyzedIncomingMsg = event => {
           (_, idx) => idx + 1
         )
         switchOrder[groupId] = randomArr(arr)
-        console.log({
-          groupObj: JSON.stringify(groupObj),
-          switchOrder: switchOrder[groupId],
-          arr
-        })
-
         return replyText(
           event,
           `目前參加的人數有 ${groupObj[groupId].length} 人\n` +
-            `請依照下列順序回覆 "抽" 開始交換禮物\n` +
+            `請依照下列順序回覆 "抽"、"換" 開始交換禮物\n` +
             `${randomArr(groupObj[groupId])
               .map((player, idx) => `${idx + 1}. ${player.displayName}\n`)
               .join('')}\n\n` +
@@ -58,6 +53,9 @@ const analyzedIncomingMsg = event => {
         )
       case '抽':
       case '換':
+        if (switchOrder[groupId].length < 1)
+          return replyText(event, '請輸入 準備完成 後，才能進入抽獎程序')
+
         const giftIndex = groupObj[groupId].findIndex(
           player => player.userId == userId
         )
