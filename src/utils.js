@@ -81,15 +81,6 @@ const analyzedIncomingMsg = event => {
         if (switchOrder[groupId].length < 1)
           return replyText(event, '請輸入 準備完成 後，才能進入抽獎程序')
 
-        if (!nextPlayerName) {
-          delete groupObj[groupId]
-          delete switchOrder[groupId]
-          return replyText(
-            event,
-            '活動結束囉! 如果要在進行一次，請輸入 交換禮物'
-          )
-        }
-
         const giftIndex = groupObj[groupId].findIndex(
           player => player.userId == userId
         )
@@ -98,7 +89,8 @@ const analyzedIncomingMsg = event => {
           ? groupObj[groupId][giftIndex + 1].displayName
           : null
         const giftNumber = switchOrder[groupId][giftIndex]
-        return replyText(
+
+        replyText(
           event,
           `恭喜 ${playerName} 交換到第 ${giftNumber} 號禮物\n` +
             `${
@@ -107,6 +99,12 @@ const analyzedIncomingMsg = event => {
                 : `結束啦！！！`
             }`
         )
+
+        if (!nextPlayerName) {
+          delete groupObj[groupId]
+          delete switchOrder[groupId]
+        }
+        return
       default:
         return replyText(event, '指令錯誤')
     }
